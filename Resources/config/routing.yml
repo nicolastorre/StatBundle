@@ -1,0 +1,7 @@
+nicolas_stat_result:
+    path:  /admin/stat
+    defaults: { _controller: NicolasStatBundle:Stat:index }
+
+nicolas_stat_details:
+    path:  /admin/stat/details/{id}
+    defaults: { _controller: NicolasStatBundle:Stat:details }

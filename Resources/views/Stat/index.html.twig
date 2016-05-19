@@ -1,0 +1,44 @@
+{% extends 'NicolasBlogBundle::Layout/backoffice.html.twig' %}
+
+{% block title %}Stat{% endblock %}
+
+{% block content %}
+    <script>
+        var stat = {{ json_stat }};
+    </script>
+
+    <div class="tab-pane fade in active adminTable well" id="stat">
+        <h2>Stat</h2>
+        {% if stat %}
+            <div class="table-responsive">
+                <table class="table table-hover table-condensed">
+                    <thead>
+                    <tr>
+                        <th>IP</th>
+                        <th>User agent</th>
+                        <th>Coords</th>
+                        <th>City</th>
+                        <th>Last visit</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+
+                    {% for user in stat %}
+                        <tr>
+                            <td><a href="{{ path('nicolas_stat_details', { 'id':user.id }) }}">{{ user.ip }}</a></td>
+                            <td>{{ user.user_agent }}</td>
+                            <td>{% if user.coords.lat %}{{ user.coords.lat }},{{ user.coords.lng }}{% endif %}</td>
+                            <td>{% if user.city %}{{ user.city }}{% endif %}</td>
+                            <td>{{ user.last_visit|date("j M Y H:i:s") }}</td>
+                            <td>{{ user.total_visit }}</td>
+                        </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-warning">No visit found.</div>
+        {% endif %}
+    </div>
+
+{% endblock %}

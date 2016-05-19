@@ -1,0 +1,56 @@
+{% extends 'NicolasBlogBundle::Layout/backoffice.html.twig' %}
+
+{% block title %}Stat{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-2 col-md-2 sidebar">
+                <div class="widget well">
+                    <h2>User</h2>
+                    <p>IP: {{ user.ip }}</p>
+                    <p>Cookie: {{ user.cookie }}</p>
+                    <p>User agent: {{ user.userAgent }}</p>
+                    <p>Port: {{ user.port }}</p>
+                    <p>Lang: {{ user.lang }}</p>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <div class="tab-pane fade in active adminTable well" id="stat">
+                    <h2>Visites par page</h2>
+                    {% if visit %}
+                        <div class="table-responsive">
+                            <table class="table table-hover table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>URI</th>
+                                    <th>Referer</th>
+                                    <th>Query</th>
+                                    <th>Total</th>
+                                </tr>
+                                </thead>
+
+                                {% for v in visit %}
+                                    <tr>
+                                        <td>{{ v.dateTime|date("j M Y h:i:s") }}</td>
+                                        <td>{{ v.uri }}</td>
+                                        <td>{{ v.referer }}</td>
+                                        <td>{{ v.query }}</td>
+                                        <td>{{ v.total }}</td>
+                                    </tr>
+                                {% endfor %}
+
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-warning">No visit found.</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+services:
+  nicolas.stat.manager:
+      class:     Nicolas\StatBundle\IpTracking\IpTrackingManager
+      arguments:
+          - '@doctrine.orm.entity_manager'
+          - '@security.token_storage'
+          - '@security.authorization_checker'
+
+  nicolas.stat.listener:
+      class: Nicolas\StatBundle\IpTracking\IpTrackingListener
+      arguments:
+          - '@nicolas.stat.manager'
+      tags:
+          - { name: kernel.event_listener, event: kernel.response, method: run }
